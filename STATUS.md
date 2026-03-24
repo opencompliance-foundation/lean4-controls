@@ -3,8 +3,8 @@
 ## What exists today
 
 - a compilable Lean 4 package,
-- formal predicates for scoped MFA and audit-logging evidence,
-- example theorems aligned to the synthetic public proof bundle,
+- formal predicates for scoped MFA, audit logging, TLS ingress, machine credential hygiene, approved-region boundaries, and backup scheduling evidence,
+- example theorems aligned to the synthetic public proof bundles,
 - and explicit boundary notes for what remains outside the current corridor.
 
 ## What does not exist yet

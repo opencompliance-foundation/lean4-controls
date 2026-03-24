@@ -7,8 +7,8 @@ It is intentionally narrow.
 ## What exists today
 
 - a buildable Lean 4 package,
-- a minimal formal corridor for scoped MFA and audit-logging predicates,
-- and an example module aligned to the public synthetic proof bundle.
+- a formal corridor for scoped MFA, audit logging, TLS ingress, machine credential hygiene, approved-region boundaries, and backup scheduling predicates,
+- and example modules aligned to the public synthetic proof bundles.
 
 ## Current corridor
 
@@ -16,6 +16,10 @@ It is intentionally narrow.
 - `AuditLoggingEnabled`
 - `RetentionWindowDeclared`
 - `NarrowAuditLoggingCorridor`
+- `TlsIngressSatisfied`
+- `NoUserManagedServiceAccountKeys`
+- `ApprovedRegionBoundarySatisfied`
+- `BackupSnapshotScheduleSatisfied`
 
 These are deliberately smaller than whole controls or whole frameworks.
 
@@ -27,7 +31,7 @@ lake build
 
 ## Public example linkage
 
-The example theorems in `OpenCompliance/Examples/Minimal.lean` mirror the runtime facts in the public synthetic bundle under `examples/minimal/`.
+The example theorems in `OpenCompliance/Examples/Minimal.lean` and `OpenCompliance/Examples/Medium.lean` mirror the runtime facts in the public synthetic bundles under `examples/minimal/` and `examples/medium/`.
 
 ## What does not exist yet
 

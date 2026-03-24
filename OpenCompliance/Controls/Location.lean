@@ -1,0 +1,29 @@
+namespace OpenCompliance.Controls
+
+structure ApprovedRegionEvidence where
+  approvedRegions : List String
+  observedRegions : List String
+  undeclaredRegionsPresent : Bool
+deriving Repr, DecidableEq
+
+def ApprovedRegionsDeclared (e : ApprovedRegionEvidence) : Prop :=
+  e.approvedRegions ≠ []
+
+def ObservedRegionsDeclared (e : ApprovedRegionEvidence) : Prop :=
+  e.observedRegions ≠ []
+
+def NoUndeclaredRegions (e : ApprovedRegionEvidence) : Prop :=
+  e.undeclaredRegionsPresent = false
+
+def ApprovedRegionBoundarySatisfied (e : ApprovedRegionEvidence) : Prop :=
+  ApprovedRegionsDeclared e ∧ ObservedRegionsDeclared e ∧ NoUndeclaredRegions e
+
+theorem approvedRegionBoundarySatisfied_of_components
+    (e : ApprovedRegionEvidence)
+    (happroved : ApprovedRegionsDeclared e)
+    (hobserved : ObservedRegionsDeclared e)
+    (hclean : NoUndeclaredRegions e) :
+    ApprovedRegionBoundarySatisfied e := by
+  exact And.intro happroved (And.intro hobserved hclean)
+
+end OpenCompliance.Controls
