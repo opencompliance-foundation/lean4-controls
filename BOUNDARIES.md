@@ -10,6 +10,9 @@ for expressing proof boundaries.
 - `FormalisationBoundary` is the canonical type for proof-tier classification.
 - `TypedIdentity.lean` keeps `AdministrativeMfaSatisfied` as a narrow
   formalisable predicate and wraps it as `FormalisationBoundary.formal`.
+- `TypedLogging.lean` does the same for the narrow audit-logging corridor and
+  keeps the runtime logging predicate inside the typed boundary layer instead of
+  re-deriving it only in Python.
 - The adjacent training-attestation slice is represented as
   `FormalisationBoundary.boundary`, backed by a
   `RequiresHumanDetermination` instance instead of prose alone.
@@ -78,6 +81,10 @@ The current typed open-texture inventory is small but explicit:
 - `ReasonableMonitoringCoverage`
   Tagged as `Vague` to represent "reasonable" monitoring coverage judgments.
 
+- `OverallPolicySuiteAdequacy`
+  Tagged as `Vague` to keep whole-program adequacy explicit as a judgment
+  boundary instead of flattening it into a global green check.
+
 These are not machine-proven. They are now machine-visible as boundary terms.
 
 ## Compliance solver boundary
@@ -89,8 +96,11 @@ minimal-claim corpus.
   claims: scoped MFA and scoped audit logging.
 - It proves that the remaining three minimal claims stay in boundary space
   under the current full corpus.
-- It does not yet prove a full exact-corpus theorem set for every minimal
-  claim in one pass, and it does not yet replace the Python runtime verdicts.
+- It now also exposes runtime claim decisions that drive the `minimal`,
+  `failed`, and `stale` public corridors from Lean rather than from the older
+  Python-only verdict loop.
+- It still does not cover the wider `medium`, `issued`, `cyber-baseline`, or
+  `ai-governance` corridors end to end.
 
 ## What is intentionally outside the Lean corridor
 
@@ -110,5 +120,5 @@ These theorems prove scoped predicates over explicit evidence values.
 
 They do not prove that an organisation is fully compliant with ISO 27001, SOC 2, or any other framework.
 They also do not yet claim that the typed `LegalLean` layer is fully threaded
-through the runtime trust-surface report. The stronger vocabulary is live in
-Lean first.
+through every runtime corridor. The stronger vocabulary is now live in Lean and
+in the narrow minimal-family runtime path first.

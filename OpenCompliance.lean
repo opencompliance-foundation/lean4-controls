@@ -5,6 +5,7 @@ import OpenCompliance.Controls.Keys
 import OpenCompliance.Controls.Location
 import OpenCompliance.Controls.Backup
 import OpenCompliance.Controls.Typed.TypedIdentity
+import OpenCompliance.Controls.Typed.TypedLogging
 import OpenCompliance.Controls.Typed.RiskAcceptance
 import OpenCompliance.Controls.Typed.DiscretionaryTerms
 import OpenCompliance.Controls.Typed.ComplianceSolver

@@ -9,9 +9,10 @@
 - explicit boundary notes for what remains outside the current corridor,
 - a LegalLean dependency pinned through `lake-manifest.json`,
 - a typed identity boundary module that expresses MFA as `FormalisationBoundary.formal` and training attestation as `FormalisationBoundary.boundary`,
+- a typed logging boundary module that expresses the narrow audit-logging corridor as `FormalisationBoundary.formal`,
 - a typed `Defeats` example for risk acceptance of the MFA obligation,
 - a small typed inventory of discretionary compliance terms,
-- and a first `LegalLean.Solver` instantiation for the minimal claim corpus.
+- and a first `LegalLean.Solver` instantiation for the minimal claim corpus, with runtime-consumed verdicts now live for the `minimal`, `failed`, and `stale` public corridors.
 
 ## What does not exist yet
 
@@ -19,4 +20,4 @@
 - no released mapping library,
 - no full-framework theorem set,
 - no claim that the current corridor proves more than its narrow predicates,
-- no full-corpus solver proof that replaces the Python verdict layer end to end.
+- no LegalLean runtime handoff yet for the wider public corridors outside the minimal family.

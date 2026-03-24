@@ -9,7 +9,7 @@ It is intentionally narrow.
 - a buildable Lean 4 package,
 - a formal corridor for scoped MFA, audit logging, TLS ingress, machine credential hygiene, approved-region boundaries, and backup scheduling predicates,
 - example modules aligned to the public synthetic proof bundles,
-- and a first LegalLean-backed typed layer for `FormalisationBoundary`, risk acceptance defeats, discretionary terms, and a reduced-corpus compliance solver.
+- and a first LegalLean-backed typed layer for `FormalisationBoundary`, risk acceptance defeats, discretionary terms, typed audit logging, and a reduced-corpus compliance solver whose runtime decisions now drive the minimal-family public corridors.
 
 ## Current corridor
 
@@ -27,13 +27,15 @@ These are deliberately smaller than whole controls or whole frameworks.
 ## Current typed boundary layer
 
 - `OpenCompliance.Controls.Typed.TypedIdentity`
+- `OpenCompliance.Controls.Typed.TypedLogging`
 - `OpenCompliance.Controls.Typed.RiskAcceptance`
 - `OpenCompliance.Controls.Typed.DiscretionaryTerms`
 - `OpenCompliance.Controls.Typed.ComplianceSolver`
 
 These modules do not widen the proved corridor automatically.
-They make the boundary between proof, attestation, defeat, and judgment
-explicit in Lean.
+They now make the boundary between proof, attestation, defeat, and judgment
+explicit in Lean and feed the runtime verdict path for the `minimal`, `failed`,
+and `stale` synthetic corridors.
 
 ## Build
 
@@ -51,4 +53,4 @@ The example theorems in `OpenCompliance/Examples/Minimal.lean` and `OpenComplian
 - no broad control library,
 - no proof that whole frameworks are satisfied,
 - no reference verifier that turns live evidence into Lean values automatically,
-- no full exact-corpus LegalLean solver theorem set for the current minimal bundle.
+- no LegalLean runtime handoff yet for the wider `medium`, `issued`, `cyber-baseline`, or `ai-governance` corridors.
