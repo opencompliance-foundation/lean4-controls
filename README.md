@@ -2,25 +2,36 @@
 
 This directory is the private source of truth for the first public export to `opencompliance-foundation/lean4-controls`.
 
-It is intentionally modest today.
+It is intentionally narrow.
 
-## Status
+## What exists today
 
-No public Lean 4 control library has been released yet.
+- a buildable Lean 4 package,
+- a minimal formal corridor for scoped MFA and audit-logging predicates,
+- and an example module aligned to the public synthetic proof bundle.
 
-That is not an omission in this directory. It is the honest current project state.
+## Current corridor
 
-## Intended first corridor
+- `AdministrativeMfaSatisfied`
+- `AuditLoggingEnabled`
+- `RetentionWindowDeclared`
+- `NarrowAuditLoggingCorridor`
 
-- ingress TLS and certificate posture
-- MFA and scoped identity controls
-- audit logging state
-- service-boundary declarations
-- key-hygiene checks
+These are deliberately smaller than whole controls or whole frameworks.
 
-## What belongs here later
+## Build
 
-- actual Lean 4 modules,
-- proof-boundary notes,
-- mapping notes from control fragments into formal predicates,
-- compilation instructions for the public corridor.
+```sh
+lake build
+```
+
+## Public example linkage
+
+The example theorems in `OpenCompliance/Examples/Minimal.lean` mirror the runtime facts in the public synthetic bundle under `examples/minimal/`.
+
+## What does not exist yet
+
+- no JSON or OSCAL ingestion,
+- no broad control library,
+- no proof that whole frameworks are satisfied,
+- no reference verifier that turns live evidence into Lean values automatically.
