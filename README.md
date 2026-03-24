@@ -8,7 +8,8 @@ It is intentionally narrow.
 
 - a buildable Lean 4 package,
 - a formal corridor for scoped MFA, audit logging, TLS ingress, machine credential hygiene, approved-region boundaries, and backup scheduling predicates,
-- and example modules aligned to the public synthetic proof bundles.
+- example modules aligned to the public synthetic proof bundles,
+- and a first LegalLean-backed typed layer for `FormalisationBoundary`, risk acceptance defeats, discretionary terms, and a reduced-corpus compliance solver.
 
 ## Current corridor
 
@@ -22,6 +23,17 @@ It is intentionally narrow.
 - `BackupSnapshotScheduleSatisfied`
 
 These are deliberately smaller than whole controls or whole frameworks.
+
+## Current typed boundary layer
+
+- `OpenCompliance.Controls.Typed.TypedIdentity`
+- `OpenCompliance.Controls.Typed.RiskAcceptance`
+- `OpenCompliance.Controls.Typed.DiscretionaryTerms`
+- `OpenCompliance.Controls.Typed.ComplianceSolver`
+
+These modules do not widen the proved corridor automatically.
+They make the boundary between proof, attestation, defeat, and judgment
+explicit in Lean.
 
 ## Build
 
@@ -38,4 +50,5 @@ The example theorems in `OpenCompliance/Examples/Minimal.lean` and `OpenComplian
 - no JSON or OSCAL ingestion,
 - no broad control library,
 - no proof that whole frameworks are satisfied,
-- no reference verifier that turns live evidence into Lean values automatically.
+- no reference verifier that turns live evidence into Lean values automatically,
+- no full exact-corpus LegalLean solver theorem set for the current minimal bundle.

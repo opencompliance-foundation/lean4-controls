@@ -66,9 +66,11 @@ theorem exClaim104_proved :
 
 theorem exClaim105_proved :
     OpenCompliance.Controls.ApprovedRegionBoundarySatisfied mediumApprovedRegionEvidence := by
-  refine OpenCompliance.Controls.approvedRegionBoundarySatisfied_of_components mediumApprovedRegionEvidence ?_ ?_ ?_
+  refine OpenCompliance.Controls.approvedRegionBoundarySatisfied_of_components mediumApprovedRegionEvidence ?_ ?_ ?_ ?_
   · simp [OpenCompliance.Controls.ApprovedRegionsDeclared, mediumApprovedRegionEvidence]
   · simp [OpenCompliance.Controls.ObservedRegionsDeclared, mediumApprovedRegionEvidence]
+  · unfold OpenCompliance.Controls.ObservedRegionsWithinApproved mediumApprovedRegionEvidence
+    native_decide
   · rfl
 
 theorem exClaim106_proved :

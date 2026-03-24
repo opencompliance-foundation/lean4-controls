@@ -7,6 +7,9 @@ package «opencompliance» where
     ⟨`autoImplicit, false⟩
   ]
 
+require «legal-lean» from git
+  "https://github.com/edu-ap/legal-lean.git" @ "main"
+
 @[default_target]
 lean_lib «OpenCompliance» where
   roots := #[`OpenCompliance]
