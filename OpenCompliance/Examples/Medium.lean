@@ -21,6 +21,12 @@ def mediumAuditLoggingEvidence : OpenCompliance.Controls.AuditLoggingEvidence :=
   retentionDays := 180
 }
 
+def mediumCentralMonitoringEvidence : OpenCompliance.Controls.CentralMonitoringEvidence := {
+  centralSinkConfigured := true
+  scopedAssetsForwarded := true
+  alertRulesEnabled := true
+}
+
 def mediumTlsIngressEvidence : OpenCompliance.Controls.TlsIngressEvidence := {
   httpsOnly := true
   minTlsVersion12OrHigher := true
@@ -94,6 +100,11 @@ theorem exClaim102_proved :
   · rfl
   · unfold OpenCompliance.Controls.RetentionWindowDeclared mediumAuditLoggingEvidence
     decide
+
+theorem exClaim132_proved :
+    OpenCompliance.Controls.CentralizedMonitoringSatisfied mediumCentralMonitoringEvidence := by
+  exact OpenCompliance.Controls.centralizedMonitoringSatisfied_of_flags
+    mediumCentralMonitoringEvidence rfl rfl rfl
 
 theorem exClaim103_proved :
     OpenCompliance.Controls.TlsIngressSatisfied mediumTlsIngressEvidence := by
