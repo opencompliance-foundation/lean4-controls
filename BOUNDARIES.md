@@ -66,6 +66,10 @@ The current Lean package mirrors the synthetic bundles under `examples/minimal/`
   Corresponds to `EX-CLAIM-126` in the medium public proof bundle.
   It proves the narrow predicate that plaintext transport is disabled on the scoped public ingress path.
 
+- `OpenCompliance.Examples.exClaim127_proved`
+  Corresponds to `EX-CLAIM-127` in the medium public proof bundle and the same narrow predicate reused in the issued corridor as `EX-CLAIM-208`.
+  It proves the narrow predicate that encryption at rest is enabled for the scoped customer data stores and that no unencrypted store is present in that declared slice.
+
 - `OpenCompliance.Examples.exClaim104_proved`
   Corresponds to `EX-CLAIM-104` in the medium public proof bundle.
   It proves the narrow predicate that scoped runtime service accounts do not use user-managed keys.

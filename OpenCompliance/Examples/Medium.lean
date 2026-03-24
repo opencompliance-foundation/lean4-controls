@@ -1,4 +1,5 @@
 import OpenCompliance.Controls.Backup
+import OpenCompliance.Controls.Cryptography
 import OpenCompliance.Controls.Identity
 import OpenCompliance.Controls.Keys
 import OpenCompliance.Controls.Location
@@ -25,6 +26,12 @@ def mediumTlsIngressEvidence : OpenCompliance.Controls.TlsIngressEvidence := {
   minTlsVersion12OrHigher := true
   managedCertificatesActive := true
   plaintextDisabled := true
+}
+
+def mediumEncryptionAtRestEvidence : OpenCompliance.Controls.EncryptionAtRestEvidence := {
+  encryptionEnabled := true
+  customerDataStoresCovered := true
+  unencryptedStoresPresent := false
 }
 
 def mediumNetworkBoundaryEvidence : OpenCompliance.Controls.NetworkBoundaryEvidence := {
@@ -84,6 +91,11 @@ theorem exClaim126_proved :
     OpenCompliance.Controls.PlaintextTransportDisabled mediumTlsIngressEvidence := by
   exact OpenCompliance.Controls.plaintextTransportDisabled_of_flags
     mediumTlsIngressEvidence rfl rfl
+
+theorem exClaim127_proved :
+    OpenCompliance.Controls.EncryptionAtRestSatisfied mediumEncryptionAtRestEvidence := by
+  exact OpenCompliance.Controls.encryptionAtRestSatisfied_of_flags
+    mediumEncryptionAtRestEvidence rfl rfl rfl
 
 theorem exClaim104_proved :
     OpenCompliance.Controls.NarrowServiceAccountKeyCorridor mediumServiceAccountKeyEvidence := by
