@@ -34,6 +34,11 @@ def mediumEncryptionAtRestEvidence : OpenCompliance.Controls.EncryptionAtRestEvi
   unencryptedStoresPresent := false
 }
 
+def mediumInfrastructureAuthUniquenessEvidence : OpenCompliance.Controls.InfrastructureAuthUniquenessEvidence := {
+  namedAccountsRequired := true
+  sharedAccountsPresent := false
+}
+
 def mediumNetworkBoundaryEvidence : OpenCompliance.Controls.NetworkBoundaryEvidence := {
   defaultDenyInbound := true
   declaredIngressPortsPresent := true
@@ -96,6 +101,11 @@ theorem exClaim127_proved :
     OpenCompliance.Controls.EncryptionAtRestSatisfied mediumEncryptionAtRestEvidence := by
   exact OpenCompliance.Controls.encryptionAtRestSatisfied_of_flags
     mediumEncryptionAtRestEvidence rfl rfl rfl
+
+theorem exClaim128_proved :
+    OpenCompliance.Controls.UniqueInfrastructureAuthenticationSatisfied mediumInfrastructureAuthUniquenessEvidence := by
+  exact OpenCompliance.Controls.uniqueInfrastructureAuthenticationSatisfied_of_flags
+    mediumInfrastructureAuthUniquenessEvidence rfl rfl
 
 theorem exClaim104_proved :
     OpenCompliance.Controls.NarrowServiceAccountKeyCorridor mediumServiceAccountKeyEvidence := by
