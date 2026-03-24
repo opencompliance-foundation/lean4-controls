@@ -7,7 +7,7 @@ It is intentionally narrow.
 ## What exists today
 
 - a buildable Lean 4 package,
-- a formal corridor for scoped MFA, audit logging, TLS ingress, machine credential hygiene, approved-region boundaries, and backup scheduling predicates,
+- a formal corridor for scoped MFA, audit logging, TLS ingress, managed ingress-boundary attachment, administrative-ingress restriction, plaintext-transport disablement, machine credential hygiene, approved-region boundaries, backup scheduling predicates, and a default-deny cyber-baseline network boundary,
 - example modules aligned to the public synthetic proof bundles,
 - and a first LegalLean-backed typed layer for `FormalisationBoundary`, risk acceptance defeats, discretionary terms, typed audit logging, and a reduced-corpus compliance solver whose runtime decisions now drive the minimal-family public corridors.
 
@@ -18,9 +18,13 @@ It is intentionally narrow.
 - `RetentionWindowDeclared`
 - `NarrowAuditLoggingCorridor`
 - `TlsIngressSatisfied`
+- `ManagedIngressBoundaryAttached`
+- `AdministrativeIngressRestricted`
+- `PlaintextTransportDisabled`
 - `NoUserManagedServiceAccountKeys`
 - `ApprovedRegionBoundarySatisfied`
 - `BackupSnapshotScheduleSatisfied`
+- `DefaultDenyNetworkBoundarySatisfied`
 
 These are deliberately smaller than whole controls or whole frameworks.
 
@@ -45,7 +49,7 @@ lake build
 
 ## Public example linkage
 
-The example theorems in `OpenCompliance/Examples/Minimal.lean` and `OpenCompliance/Examples/Medium.lean` mirror the runtime facts in the public synthetic bundles under `examples/minimal/` and `examples/medium/`.
+The example theorems in `OpenCompliance/Examples/Minimal.lean`, `OpenCompliance/Examples/Medium.lean`, and `OpenCompliance/Examples/CyberBaseline.lean` mirror the runtime facts in the public synthetic bundles under `examples/minimal/`, `examples/medium/`, and `examples/cyber-baseline/`.
 
 ## What does not exist yet
 

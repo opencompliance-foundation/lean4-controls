@@ -9,5 +9,6 @@ import OpenCompliance.Controls.Typed.TypedLogging
 import OpenCompliance.Controls.Typed.RiskAcceptance
 import OpenCompliance.Controls.Typed.DiscretionaryTerms
 import OpenCompliance.Controls.Typed.ComplianceSolver
+import OpenCompliance.Examples.CyberBaseline
 import OpenCompliance.Examples.Minimal
 import OpenCompliance.Examples.Medium

@@ -3,7 +3,7 @@
 ## What exists today
 
 - a compilable Lean 4 package,
-- formal predicates for scoped MFA, audit logging, TLS ingress, machine credential hygiene, approved-region boundaries, and backup scheduling evidence,
+- formal predicates for scoped MFA, audit logging, TLS ingress, managed ingress-boundary attachment, administrative-ingress restriction, plaintext-transport disablement, machine credential hygiene, approved-region boundaries, backup scheduling evidence, and a default-deny network boundary,
 - example theorems aligned to the synthetic public proof bundles,
 - and a private generated-batch runner that typechecks the proved decidable slice for the current synthetic fixtures,
 - explicit boundary notes for what remains outside the current corridor,

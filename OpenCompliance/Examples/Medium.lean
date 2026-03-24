@@ -24,6 +24,17 @@ def mediumTlsIngressEvidence : OpenCompliance.Controls.TlsIngressEvidence := {
   httpsOnly := true
   minTlsVersion12OrHigher := true
   managedCertificatesActive := true
+  plaintextDisabled := true
+}
+
+def mediumNetworkBoundaryEvidence : OpenCompliance.Controls.NetworkBoundaryEvidence := {
+  defaultDenyInbound := true
+  declaredIngressPortsPresent := true
+  undeclaredIngressPresent := false
+  boundaryAttachedToIngressPath := true
+  adminIngressRestricted := true
+  approvedAdminSourceRangesDeclared := true
+  unapprovedAdminIngressPresent := false
 }
 
 def mediumServiceAccountKeyEvidence : OpenCompliance.Controls.ServiceAccountKeyEvidence := {
@@ -58,6 +69,21 @@ theorem exClaim103_proved :
     OpenCompliance.Controls.TlsIngressSatisfied mediumTlsIngressEvidence := by
   exact OpenCompliance.Controls.tlsIngressSatisfied_of_flags
     mediumTlsIngressEvidence rfl rfl rfl
+
+theorem exClaim124_proved :
+    OpenCompliance.Controls.ManagedIngressBoundaryAttached mediumNetworkBoundaryEvidence := by
+  exact OpenCompliance.Controls.managedIngressBoundaryAttached_of_flags
+    mediumNetworkBoundaryEvidence rfl rfl rfl rfl
+
+theorem exClaim125_proved :
+    OpenCompliance.Controls.AdministrativeIngressRestricted mediumNetworkBoundaryEvidence := by
+  exact OpenCompliance.Controls.administrativeIngressRestricted_of_flags
+    mediumNetworkBoundaryEvidence rfl rfl rfl rfl rfl rfl
+
+theorem exClaim126_proved :
+    OpenCompliance.Controls.PlaintextTransportDisabled mediumTlsIngressEvidence := by
+  exact OpenCompliance.Controls.plaintextTransportDisabled_of_flags
+    mediumTlsIngressEvidence rfl rfl
 
 theorem exClaim104_proved :
     OpenCompliance.Controls.NarrowServiceAccountKeyCorridor mediumServiceAccountKeyEvidence := by

@@ -54,6 +54,18 @@ The current Lean package mirrors the synthetic bundles under `examples/minimal/`
   Corresponds to `EX-CLAIM-103` in the medium public proof bundle.
   It proves the narrow predicate that public ingress is HTTPS-only, uses managed certificates, and enforces TLS 1.2 or higher.
 
+- `OpenCompliance.Examples.exClaim124_proved`
+  Corresponds to `EX-CLAIM-124` in the medium public proof bundle.
+  It proves the narrow predicate that the scoped public ingress path traverses the declared managed boundary.
+
+- `OpenCompliance.Examples.exClaim125_proved`
+  Corresponds to `EX-CLAIM-125` in the medium public proof bundle.
+  It proves the narrow predicate that administrative ingress is restricted to declared approved source ranges at that scoped managed boundary.
+
+- `OpenCompliance.Examples.exClaim126_proved`
+  Corresponds to `EX-CLAIM-126` in the medium public proof bundle.
+  It proves the narrow predicate that plaintext transport is disabled on the scoped public ingress path.
+
 - `OpenCompliance.Examples.exClaim104_proved`
   Corresponds to `EX-CLAIM-104` in the medium public proof bundle.
   It proves the narrow predicate that scoped runtime service accounts do not use user-managed keys.
@@ -65,6 +77,10 @@ The current Lean package mirrors the synthetic bundles under `examples/minimal/`
 - `OpenCompliance.Examples.exClaim106_proved`
   Corresponds to `EX-CLAIM-106` in the medium public proof bundle.
   It proves the narrow predicate that backup snapshots are enabled, have a declared schedule, and have a declared immutable window.
+
+- `OpenCompliance.Examples.exClaim602_proved`
+  Corresponds to `EX-CLAIM-602` in the cyber-baseline public proof bundle.
+  It proves the narrow predicate that the scoped baseline boundary is default-deny inbound and only declared ingress remains exposed.
 
 ## Typed judgment inventory
 

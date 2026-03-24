@@ -4,6 +4,7 @@ structure TlsIngressEvidence where
   httpsOnly : Bool
   minTlsVersion12OrHigher : Bool
   managedCertificatesActive : Bool
+  plaintextDisabled : Bool
 deriving Repr, DecidableEq
 
 def HttpsOnly (e : TlsIngressEvidence) : Prop :=
@@ -18,6 +19,9 @@ def ManagedCertificatesActive (e : TlsIngressEvidence) : Prop :=
 def TlsIngressSatisfied (e : TlsIngressEvidence) : Prop :=
   HttpsOnly e ∧ TlsVersionAtLeast12 e ∧ ManagedCertificatesActive e
 
+def PlaintextTransportDisabled (e : TlsIngressEvidence) : Prop :=
+  HttpsOnly e ∧ e.plaintextDisabled = true
+
 theorem tlsIngressSatisfied_of_flags
     (e : TlsIngressEvidence)
     (hhttps : e.httpsOnly = true)
@@ -25,5 +29,85 @@ theorem tlsIngressSatisfied_of_flags
     (hcerts : e.managedCertificatesActive = true) :
     TlsIngressSatisfied e := by
   exact And.intro hhttps (And.intro htls hcerts)
+
+theorem plaintextTransportDisabled_of_flags
+    (e : TlsIngressEvidence)
+    (hhttps : e.httpsOnly = true)
+    (hplaintext : e.plaintextDisabled = true) :
+    PlaintextTransportDisabled e := by
+  exact And.intro hhttps hplaintext
+
+structure NetworkBoundaryEvidence where
+  defaultDenyInbound : Bool
+  declaredIngressPortsPresent : Bool
+  undeclaredIngressPresent : Bool
+  boundaryAttachedToIngressPath : Bool
+  adminIngressRestricted : Bool
+  approvedAdminSourceRangesDeclared : Bool
+  unapprovedAdminIngressPresent : Bool
+deriving Repr, DecidableEq
+
+def DefaultDenyInbound (e : NetworkBoundaryEvidence) : Prop :=
+  e.defaultDenyInbound = true
+
+def DeclaredIngressPortsPresent (e : NetworkBoundaryEvidence) : Prop :=
+  e.declaredIngressPortsPresent = true
+
+def NoUndeclaredIngressPresent (e : NetworkBoundaryEvidence) : Prop :=
+  e.undeclaredIngressPresent = false
+
+def DefaultDenyNetworkBoundarySatisfied (e : NetworkBoundaryEvidence) : Prop :=
+  DefaultDenyInbound e ∧ DeclaredIngressPortsPresent e ∧ NoUndeclaredIngressPresent e
+
+def BoundaryAttachedToIngressPath (e : NetworkBoundaryEvidence) : Prop :=
+  e.boundaryAttachedToIngressPath = true
+
+def ManagedIngressBoundaryAttached (e : NetworkBoundaryEvidence) : Prop :=
+  DefaultDenyNetworkBoundarySatisfied e ∧ BoundaryAttachedToIngressPath e
+
+def AdminIngressRestricted (e : NetworkBoundaryEvidence) : Prop :=
+  e.adminIngressRestricted = true
+
+def ApprovedAdminSourceRangesDeclared (e : NetworkBoundaryEvidence) : Prop :=
+  e.approvedAdminSourceRangesDeclared = true
+
+def NoUnapprovedAdminIngressPresent (e : NetworkBoundaryEvidence) : Prop :=
+  e.unapprovedAdminIngressPresent = false
+
+def AdministrativeIngressRestricted (e : NetworkBoundaryEvidence) : Prop :=
+  DefaultDenyNetworkBoundarySatisfied e ∧ AdminIngressRestricted e ∧
+    ApprovedAdminSourceRangesDeclared e ∧ NoUnapprovedAdminIngressPresent e
+
+theorem defaultDenyNetworkBoundarySatisfied_of_flags
+    (e : NetworkBoundaryEvidence)
+    (hdeny : e.defaultDenyInbound = true)
+    (hports : e.declaredIngressPortsPresent = true)
+    (hundeclared : e.undeclaredIngressPresent = false) :
+    DefaultDenyNetworkBoundarySatisfied e := by
+  exact And.intro hdeny (And.intro hports hundeclared)
+
+theorem managedIngressBoundaryAttached_of_flags
+    (e : NetworkBoundaryEvidence)
+    (hdeny : e.defaultDenyInbound = true)
+    (hports : e.declaredIngressPortsPresent = true)
+    (hundeclared : e.undeclaredIngressPresent = false)
+    (hattached : e.boundaryAttachedToIngressPath = true) :
+    ManagedIngressBoundaryAttached e := by
+  exact And.intro
+    (defaultDenyNetworkBoundarySatisfied_of_flags e hdeny hports hundeclared)
+    hattached
+
+theorem administrativeIngressRestricted_of_flags
+    (e : NetworkBoundaryEvidence)
+    (hdeny : e.defaultDenyInbound = true)
+    (hports : e.declaredIngressPortsPresent = true)
+    (hundeclared : e.undeclaredIngressPresent = false)
+    (hrestricted : e.adminIngressRestricted = true)
+    (hranges : e.approvedAdminSourceRangesDeclared = true)
+    (hunapproved : e.unapprovedAdminIngressPresent = false) :
+    AdministrativeIngressRestricted e := by
+  exact And.intro
+    (defaultDenyNetworkBoundarySatisfied_of_flags e hdeny hports hundeclared)
+    (And.intro hrestricted (And.intro hranges hunapproved))
 
 end OpenCompliance.Controls
