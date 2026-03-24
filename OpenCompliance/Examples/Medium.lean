@@ -39,6 +39,12 @@ def mediumInfrastructureAuthUniquenessEvidence : OpenCompliance.Controls.Infrast
   sharedAccountsPresent := false
 }
 
+def mediumEnvironmentSegmentationEvidence : OpenCompliance.Controls.EnvironmentSegmentationEvidence := {
+  customerBoundaryEnforced := true
+  productionSeparatedFromNonProduction := true
+  undeclaredCrossEnvironmentPathsPresent := false
+}
+
 def mediumNetworkBoundaryEvidence : OpenCompliance.Controls.NetworkBoundaryEvidence := {
   defaultDenyInbound := true
   declaredIngressPortsPresent := true
@@ -106,6 +112,11 @@ theorem exClaim128_proved :
     OpenCompliance.Controls.UniqueInfrastructureAuthenticationSatisfied mediumInfrastructureAuthUniquenessEvidence := by
   exact OpenCompliance.Controls.uniqueInfrastructureAuthenticationSatisfied_of_flags
     mediumInfrastructureAuthUniquenessEvidence rfl rfl
+
+theorem exClaim129_proved :
+    OpenCompliance.Controls.EnvironmentSegmentationSatisfied mediumEnvironmentSegmentationEvidence := by
+  exact OpenCompliance.Controls.environmentSegmentationSatisfied_of_flags
+    mediumEnvironmentSegmentationEvidence rfl rfl rfl
 
 theorem exClaim104_proved :
     OpenCompliance.Controls.NarrowServiceAccountKeyCorridor mediumServiceAccountKeyEvidence := by

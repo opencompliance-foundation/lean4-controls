@@ -110,4 +110,32 @@ theorem administrativeIngressRestricted_of_flags
     (defaultDenyNetworkBoundarySatisfied_of_flags e hdeny hports hundeclared)
     (And.intro hrestricted (And.intro hranges hunapproved))
 
+structure EnvironmentSegmentationEvidence where
+  customerBoundaryEnforced : Bool
+  productionSeparatedFromNonProduction : Bool
+  undeclaredCrossEnvironmentPathsPresent : Bool
+deriving Repr, DecidableEq
+
+def CustomerBoundaryEnforced (e : EnvironmentSegmentationEvidence) : Prop :=
+  e.customerBoundaryEnforced = true
+
+def ProductionSeparatedFromNonProduction (e : EnvironmentSegmentationEvidence) : Prop :=
+  e.productionSeparatedFromNonProduction = true
+
+def NoUndeclaredCrossEnvironmentPathsPresent (e : EnvironmentSegmentationEvidence) : Prop :=
+  e.undeclaredCrossEnvironmentPathsPresent = false
+
+def EnvironmentSegmentationSatisfied (e : EnvironmentSegmentationEvidence) : Prop :=
+  CustomerBoundaryEnforced e ∧
+    ProductionSeparatedFromNonProduction e ∧
+    NoUndeclaredCrossEnvironmentPathsPresent e
+
+theorem environmentSegmentationSatisfied_of_flags
+    (e : EnvironmentSegmentationEvidence)
+    (hcustomer : e.customerBoundaryEnforced = true)
+    (hproduction : e.productionSeparatedFromNonProduction = true)
+    (hpaths : e.undeclaredCrossEnvironmentPathsPresent = false) :
+    EnvironmentSegmentationSatisfied e := by
+  exact And.intro hcustomer (And.intro hproduction hpaths)
+
 end OpenCompliance.Controls
