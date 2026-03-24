@@ -37,6 +37,32 @@ theorem plaintextTransportDisabled_of_flags
     PlaintextTransportDisabled e := by
   exact And.intro hhttps hplaintext
 
+structure WebApplicationFirewallEvidence where
+  wafAttachedToPublicIngress : Bool
+  blockingModeEnabled : Bool
+  managedRuleSetActive : Bool
+deriving Repr, DecidableEq
+
+def WafAttachedToPublicIngress (e : WebApplicationFirewallEvidence) : Prop :=
+  e.wafAttachedToPublicIngress = true
+
+def WafBlockingModeEnabled (e : WebApplicationFirewallEvidence) : Prop :=
+  e.blockingModeEnabled = true
+
+def ManagedWafRuleSetActive (e : WebApplicationFirewallEvidence) : Prop :=
+  e.managedRuleSetActive = true
+
+def WebApplicationFirewallSatisfied (e : WebApplicationFirewallEvidence) : Prop :=
+  WafAttachedToPublicIngress e ∧ WafBlockingModeEnabled e ∧ ManagedWafRuleSetActive e
+
+theorem webApplicationFirewallSatisfied_of_flags
+    (e : WebApplicationFirewallEvidence)
+    (hattached : e.wafAttachedToPublicIngress = true)
+    (hblocking : e.blockingModeEnabled = true)
+    (hrules : e.managedRuleSetActive = true) :
+    WebApplicationFirewallSatisfied e := by
+  exact And.intro hattached (And.intro hblocking hrules)
+
 structure NetworkBoundaryEvidence where
   defaultDenyInbound : Bool
   declaredIngressPortsPresent : Bool

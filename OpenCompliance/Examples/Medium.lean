@@ -45,6 +45,12 @@ def mediumPasswordPolicyEvidence : OpenCompliance.Controls.PasswordPolicyEvidenc
   commonPasswordBlockingEnabled := true
 }
 
+def mediumWebApplicationFirewallEvidence : OpenCompliance.Controls.WebApplicationFirewallEvidence := {
+  wafAttachedToPublicIngress := true
+  blockingModeEnabled := true
+  managedRuleSetActive := true
+}
+
 def mediumEnvironmentSegmentationEvidence : OpenCompliance.Controls.EnvironmentSegmentationEvidence := {
   customerBoundaryEnforced := true
   productionSeparatedFromNonProduction := true
@@ -123,6 +129,11 @@ theorem exClaim130_proved :
     OpenCompliance.Controls.ScopedPasswordPolicySatisfied mediumPasswordPolicyEvidence := by
   exact OpenCompliance.Controls.scopedPasswordPolicySatisfied_of_flags
     mediumPasswordPolicyEvidence rfl rfl rfl
+
+theorem exClaim131_proved :
+    OpenCompliance.Controls.WebApplicationFirewallSatisfied mediumWebApplicationFirewallEvidence := by
+  exact OpenCompliance.Controls.webApplicationFirewallSatisfied_of_flags
+    mediumWebApplicationFirewallEvidence rfl rfl rfl
 
 theorem exClaim129_proved :
     OpenCompliance.Controls.EnvironmentSegmentationSatisfied mediumEnvironmentSegmentationEvidence := by
