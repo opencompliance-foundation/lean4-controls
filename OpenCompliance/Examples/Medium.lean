@@ -39,6 +39,12 @@ def mediumInfrastructureAuthUniquenessEvidence : OpenCompliance.Controls.Infrast
   sharedAccountsPresent := false
 }
 
+def mediumPasswordPolicyEvidence : OpenCompliance.Controls.PasswordPolicyEvidence := {
+  minimumLengthAtLeast12 := true
+  noMaximumLengthRestriction := true
+  commonPasswordBlockingEnabled := true
+}
+
 def mediumEnvironmentSegmentationEvidence : OpenCompliance.Controls.EnvironmentSegmentationEvidence := {
   customerBoundaryEnforced := true
   productionSeparatedFromNonProduction := true
@@ -112,6 +118,11 @@ theorem exClaim128_proved :
     OpenCompliance.Controls.UniqueInfrastructureAuthenticationSatisfied mediumInfrastructureAuthUniquenessEvidence := by
   exact OpenCompliance.Controls.uniqueInfrastructureAuthenticationSatisfied_of_flags
     mediumInfrastructureAuthUniquenessEvidence rfl rfl
+
+theorem exClaim130_proved :
+    OpenCompliance.Controls.ScopedPasswordPolicySatisfied mediumPasswordPolicyEvidence := by
+  exact OpenCompliance.Controls.scopedPasswordPolicySatisfied_of_flags
+    mediumPasswordPolicyEvidence rfl rfl rfl
 
 theorem exClaim129_proved :
     OpenCompliance.Controls.EnvironmentSegmentationSatisfied mediumEnvironmentSegmentationEvidence := by
