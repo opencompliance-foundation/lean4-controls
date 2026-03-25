@@ -27,7 +27,7 @@ assurance body. That proxy is explicit here so it remains visible and reviewable
 
 ## Public example mapping
 
-The current Lean package mirrors the synthetic bundles under `examples/minimal/` and `examples/medium/`.
+The current Lean package mirrors the synthetic bundles under `examples/minimal/`, `examples/medium/`, `examples/cyber-baseline/`, and `examples/ai-governance/`.
 
 - `OpenCompliance.Examples.exClaim001_proved`
   Corresponds to `EX-CLAIM-001` in the public proof bundle.
@@ -82,9 +82,37 @@ The current Lean package mirrors the synthetic bundles under `examples/minimal/`
   Corresponds to `EX-CLAIM-106` in the medium public proof bundle.
   It proves the narrow predicate that backup snapshots are enabled, have a declared schedule, and have a declared immutable window.
 
+- `OpenCompliance.Examples.exClaim112_proved`
+  Corresponds to the issued corridor's machine-checkable periodic access-review export slice and the same predicate shape queued in the medium corridor.
+  It proves the narrow predicate that a typed access-review export exists for the declared review window.
+
+- `OpenCompliance.Examples.exClaim113_proved`
+  Corresponds to `EX-CLAIM-113` in the medium public proof bundle.
+  It proves the narrow predicate that the default branch is protected with approvals, status checks, and force-push restrictions.
+
+- `OpenCompliance.Examples.exClaim114_proved`
+  Corresponds to `EX-CLAIM-114` in the medium public proof bundle.
+  It proves the narrow predicate that the scoped CI workflow requires review, trusted publishing, protected refs, and environment approvals.
+
 - `OpenCompliance.Examples.exClaim602_proved`
   Corresponds to `EX-CLAIM-602` in the cyber-baseline public proof bundle.
   It proves the narrow predicate that the scoped baseline boundary is default-deny inbound and only declared ingress remains exposed.
+
+- `OpenCompliance.Examples.exClaim603_proved`
+  Corresponds to `EX-CLAIM-603` in the cyber-baseline public proof bundle.
+  It proves the narrow predicate that the scoped baseline export is applied, insecure defaults are absent, and the snapshot is recent enough for the corridor.
+
+- `OpenCompliance.Examples.exClaim604_proved`
+  Corresponds to `EX-CLAIM-604` in the cyber-baseline public proof bundle.
+  It proves the narrow predicate that the scoped assets stay on supported versions and have no overdue critical updates beyond the declared patch window.
+
+- `OpenCompliance.Examples.exClaim605_proved`
+  Corresponds to `EX-CLAIM-605` in the cyber-baseline public proof bundle.
+  It proves the narrow predicate that endpoint malware protection is enabled, current, and tamper-protected in the scoped export.
+
+- `OpenCompliance.Examples.exClaim705_proved`
+  Corresponds to `EX-CLAIM-705` in the AI-governance public proof bundle.
+  It proves the narrow predicate that the generated-content pipeline has disclosure labeling, metadata marking, and enforcement checks enabled in the scoped configuration snapshot.
 
 ## Typed judgment inventory
 
@@ -110,7 +138,8 @@ These are not machine-proven. They are now machine-visible as boundary terms.
 ## Compliance solver boundary
 
 `ComplianceSolver.lean` now instantiates `LegalLean.Solver` for the current
-minimal-claim corpus.
+minimal-claim corpus, and `PublicRuntime.lean` now provides the public runtime
+decision vocabulary for every current synthetic corridor.
 
 - It proves reduced single-rule formal results for the two decidable minimal
   claims: scoped MFA and scoped audit logging.
@@ -119,8 +148,10 @@ minimal-claim corpus.
 - It now also exposes runtime claim decisions that drive the `minimal`,
   `failed`, and `stale` public corridors from Lean rather than from the older
   Python-only verdict loop.
-- It still does not cover the wider `medium`, `issued`, `cyber-baseline`, or
-  `ai-governance` corridors end to end.
+- `PublicRuntime.lean` now extends that runtime handoff to the wider
+  `medium`, `issued`, `cyber-baseline`, and `ai-governance` corridors, using
+  Lean-evaluated formal predicates for every current public decidable claim and
+  Lean-evaluated documentary/judgment routing for the remaining public slots.
 
 ## What is intentionally outside the Lean corridor
 
@@ -139,6 +170,7 @@ minimal-claim corpus.
 These theorems prove scoped predicates over explicit evidence values.
 
 They do not prove that an organisation is fully compliant with ISO 27001, SOC 2, or any other framework.
-They also do not yet claim that the typed `LegalLean` layer is fully threaded
-through every runtime corridor. The stronger vocabulary is now live in Lean and
-in the narrow minimal-family runtime path first.
+They also do not claim that the typed `LegalLean` layer is a full-framework
+solver. The stronger vocabulary is now live across every current public runtime
+corridor, but only for the narrow public predicates and boundary slots listed
+above.

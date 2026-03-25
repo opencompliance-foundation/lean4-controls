@@ -16,6 +16,12 @@ structure PasswordPolicyEvidence where
   commonPasswordBlockingEnabled : Bool
 deriving Repr, DecidableEq
 
+structure AccessReviewExportEvidence where
+  reviewCompleted : Bool
+  reviewWindowDays : Nat
+  reviewPopulationDeclared : Bool
+deriving Repr, DecidableEq
+
 def AdministrativeMfaSatisfied (e : IdentityEvidence) : Prop :=
   e.mfaRequired = true ∧ e.conditionalAccessEnabled = true
 
@@ -26,6 +32,11 @@ def ScopedPasswordPolicySatisfied (e : PasswordPolicyEvidence) : Prop :=
   e.minimumLengthAtLeast12 = true ∧
     e.noMaximumLengthRestriction = true ∧
     e.commonPasswordBlockingEnabled = true
+
+def TypedPeriodicAccessReviewExportPresent (e : AccessReviewExportEvidence) : Prop :=
+  e.reviewCompleted = true ∧
+    0 < e.reviewWindowDays ∧
+    e.reviewPopulationDeclared = true
 
 theorem administrativeMfaSatisfied_of_flags
     (e : IdentityEvidence)
@@ -48,5 +59,13 @@ theorem scopedPasswordPolicySatisfied_of_flags
     (hblock : e.commonPasswordBlockingEnabled = true) :
     ScopedPasswordPolicySatisfied e := by
   exact And.intro hlength (And.intro hnomax hblock)
+
+theorem typedPeriodicAccessReviewExportPresent_of_components
+    (e : AccessReviewExportEvidence)
+    (hcompleted : e.reviewCompleted = true)
+    (hwindow : 0 < e.reviewWindowDays)
+    (hpopulation : e.reviewPopulationDeclared = true) :
+    TypedPeriodicAccessReviewExportPresent e := by
+  exact And.intro hcompleted (And.intro hwindow hpopulation)
 
 end OpenCompliance.Controls

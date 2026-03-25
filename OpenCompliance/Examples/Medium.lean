@@ -1,5 +1,6 @@
 import OpenCompliance.Controls.Backup
 import OpenCompliance.Controls.Cryptography
+import OpenCompliance.Controls.Development
 import OpenCompliance.Controls.Identity
 import OpenCompliance.Controls.Keys
 import OpenCompliance.Controls.Location
@@ -51,10 +52,31 @@ def mediumPasswordPolicyEvidence : OpenCompliance.Controls.PasswordPolicyEvidenc
   commonPasswordBlockingEnabled := true
 }
 
+def mediumAccessReviewExportEvidence : OpenCompliance.Controls.AccessReviewExportEvidence := {
+  reviewCompleted := true
+  reviewWindowDays := 90
+  reviewPopulationDeclared := true
+}
+
 def mediumWebApplicationFirewallEvidence : OpenCompliance.Controls.WebApplicationFirewallEvidence := {
   wafAttachedToPublicIngress := true
   blockingModeEnabled := true
   managedRuleSetActive := true
+}
+
+def mediumRepoBranchProtectionEvidence : OpenCompliance.Controls.RepoBranchProtectionEvidence := {
+  defaultBranchProtected := true
+  requiredApprovals := 2
+  statusChecksRequired := true
+  forcePushesBlocked := true
+  adminBypassRestricted := true
+}
+
+def mediumCiWorkflowPolicyEvidence : OpenCompliance.Controls.CiWorkflowPolicyEvidence := {
+  workflowReviewRequired := true
+  trustedPublishingOnly := true
+  protectedRefsOnly := true
+  environmentApprovalsRequired := true
 }
 
 def mediumEnvironmentSegmentationEvidence : OpenCompliance.Controls.EnvironmentSegmentationEvidence := {
@@ -141,6 +163,11 @@ theorem exClaim130_proved :
   exact OpenCompliance.Controls.scopedPasswordPolicySatisfied_of_flags
     mediumPasswordPolicyEvidence rfl rfl rfl
 
+theorem exClaim112_proved :
+    OpenCompliance.Controls.TypedPeriodicAccessReviewExportPresent mediumAccessReviewExportEvidence := by
+  exact OpenCompliance.Controls.typedPeriodicAccessReviewExportPresent_of_components
+    mediumAccessReviewExportEvidence rfl (by decide) rfl
+
 theorem exClaim131_proved :
     OpenCompliance.Controls.WebApplicationFirewallSatisfied mediumWebApplicationFirewallEvidence := by
   exact OpenCompliance.Controls.webApplicationFirewallSatisfied_of_flags
@@ -173,5 +200,15 @@ theorem exClaim106_proved :
     decide
   · unfold OpenCompliance.Controls.ImmutableWindowDeclared mediumBackupSnapshotEvidence
     decide
+
+theorem exClaim113_proved :
+    OpenCompliance.Controls.DefaultBranchProtectionsEnforced mediumRepoBranchProtectionEvidence := by
+  exact OpenCompliance.Controls.defaultBranchProtectionsEnforced_of_components
+    mediumRepoBranchProtectionEvidence rfl (by decide) rfl rfl rfl
+
+theorem exClaim114_proved :
+    OpenCompliance.Controls.CiWorkflowPolicyConstrained mediumCiWorkflowPolicyEvidence := by
+  exact OpenCompliance.Controls.ciWorkflowPolicyConstrained_of_flags
+    mediumCiWorkflowPolicyEvidence rfl rfl rfl rfl
 
 end OpenCompliance.Examples
