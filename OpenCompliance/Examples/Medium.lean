@@ -95,6 +95,12 @@ def mediumNetworkBoundaryEvidence : OpenCompliance.Controls.NetworkBoundaryEvide
   unapprovedAdminIngressPresent := false
 }
 
+def mediumRemoteAccessPostureEvidence : OpenCompliance.Controls.RemoteAccessPostureEvidence := {
+  remotePathDeclared := true
+  devicePostureBounded := true
+  systemCount := 24
+}
+
 def mediumServiceAccountKeyEvidence : OpenCompliance.Controls.ServiceAccountKeyEvidence := {
   userManagedKeysPresent := false
   maxUserManagedKeyAgeDays := 0
@@ -142,6 +148,11 @@ theorem exClaim125_proved :
     OpenCompliance.Controls.AdministrativeIngressRestricted mediumNetworkBoundaryEvidence := by
   exact OpenCompliance.Controls.administrativeIngressRestricted_of_flags
     mediumNetworkBoundaryEvidence rfl rfl rfl rfl rfl rfl
+
+theorem exClaim145_proved :
+    OpenCompliance.Controls.RemoteAccessPostureDeclared mediumRemoteAccessPostureEvidence := by
+  exact OpenCompliance.Controls.remoteAccessPostureDeclared_of_components
+    mediumRemoteAccessPostureEvidence rfl rfl (by decide)
 
 theorem exClaim126_proved :
     OpenCompliance.Controls.PlaintextTransportDisabled mediumTlsIngressEvidence := by

@@ -136,6 +136,32 @@ theorem administrativeIngressRestricted_of_flags
     (defaultDenyNetworkBoundarySatisfied_of_flags e hdeny hports hundeclared)
     (And.intro hrestricted (And.intro hranges hunapproved))
 
+structure RemoteAccessPostureEvidence where
+  remotePathDeclared : Bool
+  devicePostureBounded : Bool
+  systemCount : Nat
+deriving Repr, DecidableEq
+
+def RemotePathDeclared (e : RemoteAccessPostureEvidence) : Prop :=
+  e.remotePathDeclared = true
+
+def DevicePostureBounded (e : RemoteAccessPostureEvidence) : Prop :=
+  e.devicePostureBounded = true
+
+def ScopedRemoteSystemsDeclared (e : RemoteAccessPostureEvidence) : Prop :=
+  0 < e.systemCount
+
+def RemoteAccessPostureDeclared (e : RemoteAccessPostureEvidence) : Prop :=
+  RemotePathDeclared e ∧ DevicePostureBounded e ∧ ScopedRemoteSystemsDeclared e
+
+theorem remoteAccessPostureDeclared_of_components
+    (e : RemoteAccessPostureEvidence)
+    (hpath : e.remotePathDeclared = true)
+    (hdevice : e.devicePostureBounded = true)
+    (hsystems : 0 < e.systemCount) :
+    RemoteAccessPostureDeclared e := by
+  exact And.intro hpath (And.intro hdevice hsystems)
+
 structure EnvironmentSegmentationEvidence where
   customerBoundaryEnforced : Bool
   productionSeparatedFromNonProduction : Bool
